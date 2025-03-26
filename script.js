@@ -4,7 +4,7 @@ const wordList = [
 //setting game variables
 let selectedWord = ''
 let displayedWord = ''
-let wrongGuess = 0
+let wrongGuesses = 0
 let guessedLetters = []
 const maxMistakes = 6
 function startGame(level){
@@ -62,4 +62,42 @@ if(selectedWord.includes(guessedLetter)){
 }
 inputField.value = ''
 inputField.focus()
+}
+
+function wrongGuess(guessedLetter){
+
+//increment number of wrong guesses
+wrongGuesses++
+//add the guess letter to the html div
+document.getElementById('wrongLetters').textContent += `${guessedLetter}`
+//check to see if the number of wrong guesses is equal to maxMistakes, if it is call endGame(false)
+document.getElementById('shamrock').src = `imgs/shamrock${6-wrongGuesses}.jpg`
+if (wrongGuesses === maxMistakes) {
+    endGame(false)}
+}
+
+function correctGuess(guessedLetter){
+    let newDisplayedWord = ''
+    for (let i = 0; i < selectedWord.length; i++) {
+        if (selectedWord[i] === guessedLetter) {
+            newDisplayedWord += guessedLetter
+        } else {newDisplayedWord += displayedWord[i]
+    }
+}
+displayedWord = newDisplayedWord
+document.getElementById('wordDisplay').textContent = displayedWord.split('').join(' ')
+if(!displayedWord.includes('_')){
+endGame(true)
+}
+}
+function endGame(won){
+    if (won === true){
+       setTimeout(() => alert('Yay you won'), 100)}
+       else{
+        if (won === false){
+            setTimeout(() => alert('Sorry you lost'), 100)}
+       }
+}
+function restartGame(){
+    location.reload
 }
