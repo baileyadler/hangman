@@ -71,7 +71,7 @@ wrongGuesses++
 //add the guess letter to the html div
 document.getElementById('wrongLetters').textContent += `${guessedLetter}`
 //check to see if the number of wrong guesses is equal to maxMistakes, if it is call endGame(false)
-document.getElementById('shamrock').src = `imgs/shamrock${6-wrongGuesses}.jpg`
+document.getElementById('shamrock').src = `imgs/shamrock${0+wrongGuesses}.pdf`
 if (wrongGuesses === maxMistakes) {
     endGame(false)}
 }
@@ -101,3 +101,10 @@ function endGame(won){
 function restartGame(){
     location.reload
 }
+//allow user to press enter when inputtng letters
+document.getElementById('letterInput').addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+            guessLetter();
+        }
+    }
+)
