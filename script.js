@@ -13,7 +13,7 @@ function startGame(level){
     updateDifficultyDisplay(level)
 //create placeholder for the selected word
 displayedWord = '_'.repeat(selectedWord.length)
-document.getElementById('wordDisplay').textContext = displayedWord.split('').join(' ')
+document.getElementById('wordDisplay').textContent = displayedWord.split('').join(' ')
 
     // add d-none to difficulty selection and remove d none from difficulty box and game area
     document.getElementById('difficultySelection').classList.add('d-none')
@@ -71,7 +71,7 @@ wrongGuesses++
 //add the guess letter to the html div
 document.getElementById('wrongLetters').textContent += `${guessedLetter}`
 //check to see if the number of wrong guesses is equal to maxMistakes, if it is call endGame(false)
-document.getElementById('shamrock').src = `imgs/shamrock${0+wrongGuesses}.pdf`
+document.getElementById('shamrock').src = `imgs/shamrock${0+wrongGuesses}.png`
 if (wrongGuesses === maxMistakes) {
     endGame(false)}
 }
@@ -99,7 +99,7 @@ function endGame(won){
        }
 }
 function restartGame(){
-    location.reload
+    location.reload()
 }
 //allow user to press enter when inputtng letters
 document.getElementById('letterInput').addEventListener('keydown', (event) => {
