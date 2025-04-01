@@ -65,7 +65,7 @@ inputField.focus()
 }
 
 function wrongGuess(guessedLetter){
-
+    document.getElementById('wrongAudio').play()
 //increment number of wrong guesses
 wrongGuesses++
 //add the guess letter to the html div
@@ -82,7 +82,9 @@ function correctGuess(guessedLetter){
         if (selectedWord[i] === guessedLetter) {
             newDisplayedWord += guessedLetter
         } else {newDisplayedWord += displayedWord[i]
+            document.getElementById('correctAudio').play()
     }
+    
 }
 displayedWord = newDisplayedWord
 document.getElementById('wordDisplay').textContent = displayedWord.split('').join(' ')
@@ -102,6 +104,7 @@ function endGame(won){
 function restartGame(){
     location.reload()
 }
+
 //allow user to press enter when inputtng letters
 document.getElementById('letterInput').addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
@@ -109,3 +112,11 @@ document.getElementById('letterInput').addEventListener('keydown', (event) => {
         }
     }
 )
+const correctAudio = document.getElementById('correctAudio')
+audio.addEventListener('play', function(){
+   console.log('Audio will play');
+});
+const wrongAudio = document.getElementById('wrongAudio')
+audio.addEventListener('play', function(){
+   console.log('Audio will play')
+})
