@@ -7,6 +7,7 @@ let displayedWord = ''
 let wrongGuesses = 0
 let guessedLetters = []
 const maxMistakes = 6
+let tasks = []
 function startGame(level){
     selectedWord = getRandomWord(level)
     //hide difficulty selection and show game area and difficulty boxes
@@ -14,7 +15,6 @@ function startGame(level){
 //create placeholder for the selected word
 displayedWord = '_'.repeat(selectedWord.length)
 document.getElementById('wordDisplay').textContent = displayedWord.split('').join(' ')
-
     // add d-none to difficulty selection and remove d none from difficulty box and game area
     document.getElementById('difficultySelection').classList.add('d-none')
     //add d block to difficulty box and game area
@@ -63,7 +63,6 @@ if(selectedWord.includes(guessedLetter)){
 inputField.value = ''
 inputField.focus()
 }
-
 function wrongGuess(guessedLetter){
     document.getElementById('wrongAudio').play()
 //increment number of wrong guesses
@@ -75,7 +74,6 @@ document.getElementById('Shamrock').src = `imgs/Shamrock${0 + wrongGuesses}.png`
 if (wrongGuesses === maxMistakes) {
     endGame(false)}
 }
-
 function correctGuess(guessedLetter){
     let newDisplayedWord = ''
     for (let i = 0; i < selectedWord.length; i++) {
@@ -84,7 +82,6 @@ function correctGuess(guessedLetter){
         } else {newDisplayedWord += displayedWord[i]
             document.getElementById('correctAudio').play()
     }
-    
 }
 displayedWord = newDisplayedWord
 document.getElementById('wordDisplay').textContent = displayedWord.split('').join(' ')
@@ -99,12 +96,20 @@ function endGame(won){
         if (won === false){
             setTimeout(() => alert('Sorry you lost'), 100)}
        }
-
 }
 function restartGame(){
-    location.reload()
-}
-
+let selectedWord = ''
+let displayedWord = ''
+let wrongGuesses = 0
+let guessedLetters = []
+const maxMistakes = 6
+let tasks = []
+ startGame(level)
+    document.getElementById('wrongLetters').textContent = ''
+    document.getElementById('Shamrock').src = 'imgs/Shamrock.png'
+    document.getElementById('wordDisplay').textContent = ''
+    document.getElementById('letterInput').value = ''
+}        
 //allow user to press enter when inputtng letters
 document.getElementById('letterInput').addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
@@ -114,9 +119,23 @@ document.getElementById('letterInput').addEventListener('keydown', (event) => {
 )
 const correctAudio = document.getElementById('correctAudio')
 audio.addEventListener('play', function(){
-   console.log('Audio will play');
 });
 const wrongAudio = document.getElementById('wrongAudio')
 audio.addEventListener('play', function(){
-   console.log('Audio will play')
 })
+function updateTaskCounter(){
+    let taskCounter = document.getElementById('updateTaskCounter');
+    taskCounter.textContent = `Number of Tasks: ${tasks.length}`;
+}
+const openBtn = document.getElementById('openModal')
+const closeBtn = document.getElementById('closeModal')
+const modal = document.getElementById('modal')
+
+openBtn.addEventListener('click', () => {
+    modal.classList.add('open');
+});
+
+closeBtn.addEventListener('click', () => {
+    modal.classList.remove('open');
+});
+
